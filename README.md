@@ -93,6 +93,7 @@ This API requires the following permissions be added to your `AndroidManifest.xm
 
 ```xml
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
 You also need to add the following service **in** the `application` tag in your `AndroidManifest.xml`:
