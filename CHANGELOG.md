@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/capawesome-team/sponsorware/compare/v0.1.0...v0.2.0) (2023-03-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* The following receiver must be added to your `AndroidManifest.xml` **in** the `application` tag: `<receiver android:name="io.capawesome.capacitorjs.plugins.foregroundservice.NotificationActionBroadcastReceiver" />`
+
+### Features
+
+* support notification buttons ([#3](https://github.com/capawesome-team/sponsorware/issues/3)) ([46f448c](https://github.com/capawesome-team/sponsorware/commit/46f448ce737ab5b8355e5adc9483c355343f7040))
+
 ## [0.1.0](https://github.com/capawesome-team/sponsorware/compare/v0.0.2...v0.1.0) (2022-12-09)
 
 
