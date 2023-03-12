@@ -61,32 +61,9 @@ A working example can be found here: [robingenz/capacitor-plugin-demo](https://g
 
 ## Installation
 
-As long as the project is available as [Sponsorware](#sponsorware), the project will be distributed via GitHub packages.
+See [Getting started with Insiders](https://capawesome.io/insiders/getting-started/?plugin=capacitor-nfc) and follow the instructions to install the plugin.
 
-1. Log in to GitHub package registry ([GitHub Docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages)):
-
-   ```
-   $ npm login --scope=@capawesome-team --auth-type=legacy --registry=https://npm.pkg.github.com
-
-   > Username: USERNAME
-   > Password: TOKEN
-   > Email: PUBLIC-EMAIL-ADDRESS
-   ```
-
-1. In the same directory as your `package.json` file, create or edit an `.npmrc` file to include the following line ([GitHub Docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package)):
-   ```
-   @capawesome-team:registry=https://npm.pkg.github.com
-   ```
-1. Install the package:
-
-   ```bash
-   npm install @capawesome-team/capacitor-android-foreground-service
-   npx cap sync
-   ```
-
-   🆘 If you get `npm ERR! code E403` as an error during installation, then check if you are already an [Insider Sponsor](https://github.com/sponsors/capawesome-team) of Capawesome on GitHub.
-   If the error remains or you have any other problems please [contact us by mail](mailto:support@capawesome.io) or [create a GitHub discussion](https://docs.github.com/en/discussions/quickstart#creating-a-new-discussion) in this repository.  
-   ⚠️ **Attention**: Be careful not to disclose your npm auth token! If you have any questions (CI configuration etc.) please let us know.
+After that, follow the platform-specific instructions in the section [Android](#android).
 
 ### Android
 
@@ -97,9 +74,10 @@ This API requires the following permissions be added to your `AndroidManifest.xm
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
-You also need to add the following service **in** the `application` tag in your `AndroidManifest.xml`:
+You also need to add the following receiver and service **in** the `application` tag in your `AndroidManifest.xml`:
 
 ```xml
+<receiver android:name="io.capawesome.capacitorjs.plugins.foregroundservice.NotificationActionBroadcastReceiver" />
 <service android:name="io.capawesome.capacitorjs.plugins.foregroundservice.AndroidForegroundService" />
 ```
 
@@ -134,7 +112,10 @@ const stopForegroundService = async () => {
 
 * [`startForegroundService(...)`](#startforegroundservice)
 * [`stopForegroundService()`](#stopforegroundservice)
+* [`addListener('buttonClicked', ...)`](#addlistenerbuttonclicked)
+* [`removeAllListeners()`](#removealllisteners)
 * [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
 
 </docgen-index>
 
@@ -175,17 +156,83 @@ Only available for Android.
 --------------------
 
 
+### addListener('buttonClicked', ...)
+
+```typescript
+addListener(eventName: 'buttonClicked', listenerFunc: ButtonClickedEventListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+```
+
+Called when a notification button is clicked.
+
+Only available on iOS.
+
+| Param              | Type                                                                              |
+| ------------------ | --------------------------------------------------------------------------------- |
+| **`eventName`**    | <code>'buttonClicked'</code>                                                      |
+| **`listenerFunc`** | <code><a href="#buttonclickedeventlistener">ButtonClickedEventListener</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+
+**Since:** 0.2.0
+
+--------------------
+
+
+### removeAllListeners()
+
+```typescript
+removeAllListeners() => Promise<void>
+```
+
+Remove all listeners for this plugin.
+
+**Since:** 0.2.0
+
+--------------------
+
+
 ### Interfaces
 
 
 #### StartForegroundServiceOptions
 
-| Prop            | Type                | Description                                                                                                                                                                                                                                 | Since |
-| --------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| **`body`**      | <code>string</code> | The body of the notification, shown below the title.                                                                                                                                                                                        | 0.0.1 |
-| **`id`**        | <code>number</code> | The notification identifier.                                                                                                                                                                                                                | 0.0.1 |
-| **`smallIcon`** | <code>string</code> | The status bar icon for the notification. Icons should be placed in your app's `res/drawable` folder. The value for this option should be the drawable resource ID, which is the filename without an extension. Only available for Android. | 0.0.1 |
-| **`title`**     | <code>string</code> | The title of the notification.                                                                                                                                                                                                              | 0.0.1 |
+| Prop            | Type                              | Description                                                                                                                                                                                                     | Since |
+| --------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **`body`**      | <code>string</code>               | The body of the notification, shown below the title.                                                                                                                                                            | 0.0.1 |
+| **`buttons`**   | <code>NotificationButton[]</code> | The buttons to show on the notification. Only available for Android (SDK 24+).                                                                                                                                  | 0.2.0 |
+| **`id`**        | <code>number</code>               | The notification identifier.                                                                                                                                                                                    | 0.0.1 |
+| **`smallIcon`** | <code>string</code>               | The status bar icon for the notification. Icons should be placed in your app's `res/drawable` folder. The value for this option should be the drawable resource ID, which is the filename without an extension. | 0.0.1 |
+| **`title`**     | <code>string</code>               | The title of the notification.                                                                                                                                                                                  | 0.0.1 |
+
+
+#### NotificationButton
+
+| Prop        | Type                | Description                                                                                           | Since |
+| ----------- | ------------------- | ----------------------------------------------------------------------------------------------------- | ----- |
+| **`title`** | <code>string</code> | The button title.                                                                                     | 0.2.0 |
+| **`id`**    | <code>number</code> | The button identifier. This is used to identify the button when the `buttonClicked` event is emitted. | 0.2.0 |
+
+
+#### PluginListenerHandle
+
+| Prop         | Type                                      |
+| ------------ | ----------------------------------------- |
+| **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
+
+
+#### ButtonClickedEvent
+
+| Prop           | Type                | Description            | Since |
+| -------------- | ------------------- | ---------------------- | ----- |
+| **`buttonId`** | <code>number</code> | The button identifier. | 0.2.0 |
+
+
+### Type Aliases
+
+
+#### ButtonClickedEventListener
+
+<code>(event: <a href="#buttonclickedevent">ButtonClickedEvent</a>): void</code>
 
 </docgen-api>
 
