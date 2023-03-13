@@ -61,7 +61,7 @@ A working example can be found here: [robingenz/capacitor-plugin-demo](https://g
 
 ## Installation
 
-See [Getting started with Insiders](https://capawesome.io/insiders/getting-started/?plugin=capacitor-nfc) and follow the instructions to install the plugin.
+See [Getting started with Insiders](https://capawesome.io/insiders/getting-started/?plugin=capacitor-android-foreground-service) and follow the instructions to install the plugin.
 
 After that, follow the platform-specific instructions in the section [Android](#android).
 
