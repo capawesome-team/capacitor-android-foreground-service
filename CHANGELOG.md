@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/capawesome-team/sponsorware/compare/v0.2.0...v0.3.0) (2023-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* The following permission must be added to your `AndroidManifest.xml` before or after the `application` tag: `<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />`
+
+### Features
+
+* add methods `moveToForeground`, `requestManageOverlayPermission` and `checkManageOverlayPermission` ([7ef8d91](https://github.com/capawesome-team/sponsorware/commit/7ef8d91bd7ad8cd704d34f5ad2925069f50549b0))
+
 ## [0.2.0](https://github.com/capawesome-team/sponsorware/compare/v0.1.0...v0.2.0) (2023-03-12)
 
 
