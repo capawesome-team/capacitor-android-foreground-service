@@ -142,7 +142,7 @@ permission is granted.
 
 Only available for Android.
 
-**Since:** 0.2.1
+**Since:** 0.3.0
 
 --------------------
 
@@ -193,7 +193,7 @@ Only available for Android.
 
 **Returns:** <code>Promise&lt;<a href="#manageoverlaypermissionresult">ManageOverlayPermissionResult</a>&gt;</code>
 
-**Since:** 0.2.1
+**Since:** 0.3.0
 
 --------------------
 
@@ -210,7 +210,7 @@ Only available for Android.
 
 **Returns:** <code>Promise&lt;<a href="#manageoverlaypermissionresult">ManageOverlayPermissionResult</a>&gt;</code>
 
-**Since:** 0.2.1
+**Since:** 0.3.0
 
 --------------------
 
@@ -276,7 +276,7 @@ Remove all listeners for this plugin.
 
 | Prop          | Type                 | Description                                                                      | Since |
 | ------------- | -------------------- | -------------------------------------------------------------------------------- | ----- |
-| **`granted`** | <code>boolean</code> | Whether the permission is granted. This is always `true` on Android SDK &lt; 23. | 0.2.1 |
+| **`granted`** | <code>boolean</code> | Whether the permission is granted. This is always `true` on Android SDK &lt; 23. | 0.3.0 |
 
 
 #### PluginListenerHandle
