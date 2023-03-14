@@ -67,11 +67,13 @@ After that, follow the platform-specific instructions in the section [Android](#
 
 ### Android
 
-This API requires the following permissions be added to your `AndroidManifest.xml` **before** the `application` tag:
+This API requires the following permissions be added to your `AndroidManifest.xml` before or after the `application` tag:
 
 ```xml
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 <uses-permission android:name="android.permission.WAKE_LOCK" />
+<!-- Required to request the manage overlay permission -->
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 ```
 
 You also need to add the following receiver and service **in** the `application` tag in your `AndroidManifest.xml`:
@@ -110,8 +112,11 @@ const stopForegroundService = async () => {
 
 <docgen-index>
 
+* [`moveToForeground()`](#movetoforeground)
 * [`startForegroundService(...)`](#startforegroundservice)
 * [`stopForegroundService()`](#stopforegroundservice)
+* [`requestManageOverlayPermission()`](#requestmanageoverlaypermission)
+* [`checkManageOverlayPermission()`](#checkmanageoverlaypermission)
 * [`addListener('buttonClicked', ...)`](#addlistenerbuttonclicked)
 * [`removeAllListeners()`](#removealllisteners)
 * [Interfaces](#interfaces)
@@ -121,6 +126,26 @@ const stopForegroundService = async () => {
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### moveToForeground()
+
+```typescript
+moveToForeground() => Promise<void>
+```
+
+Moves the app to the foreground.
+
+On Android SDK 23+, the user must grant the manage overlay permission.
+You can use the `requestManageOverlayPermission()` method to request the
+permission and the `checkManageOverlayPermission()` method to check if the
+permission is granted.
+
+Only available for Android.
+
+**Since:** 0.2.1
+
+--------------------
+
 
 ### startForegroundService(...)
 
@@ -152,6 +177,40 @@ Stops the foreground service.
 Only available for Android.
 
 **Since:** 0.0.1
+
+--------------------
+
+
+### requestManageOverlayPermission()
+
+```typescript
+requestManageOverlayPermission() => Promise<ManageOverlayPermissionResult>
+```
+
+Request the manage overlay permission.
+
+Only available for Android.
+
+**Returns:** <code>Promise&lt;<a href="#manageoverlaypermissionresult">ManageOverlayPermissionResult</a>&gt;</code>
+
+**Since:** 0.2.1
+
+--------------------
+
+
+### checkManageOverlayPermission()
+
+```typescript
+checkManageOverlayPermission() => Promise<ManageOverlayPermissionResult>
+```
+
+Check if the overlay permission is granted.
+
+Only available for Android.
+
+**Returns:** <code>Promise&lt;<a href="#manageoverlaypermissionresult">ManageOverlayPermissionResult</a>&gt;</code>
+
+**Since:** 0.2.1
 
 --------------------
 
@@ -211,6 +270,13 @@ Remove all listeners for this plugin.
 | ----------- | ------------------- | ----------------------------------------------------------------------------------------------------- | ----- |
 | **`title`** | <code>string</code> | The button title.                                                                                     | 0.2.0 |
 | **`id`**    | <code>number</code> | The button identifier. This is used to identify the button when the `buttonClicked` event is emitted. | 0.2.0 |
+
+
+#### ManageOverlayPermissionResult
+
+| Prop          | Type                 | Description                                                                      | Since |
+| ------------- | -------------------- | -------------------------------------------------------------------------------- | ----- |
+| **`granted`** | <code>boolean</code> | Whether the permission is granted. This is always `true` on Android SDK &lt; 23. | 0.2.1 |
 
 
 #### PluginListenerHandle
