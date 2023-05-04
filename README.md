@@ -115,8 +115,10 @@ const stopForegroundService = async () => {
 * [`moveToForeground()`](#movetoforeground)
 * [`startForegroundService(...)`](#startforegroundservice)
 * [`stopForegroundService()`](#stopforegroundservice)
-* [`requestManageOverlayPermission()`](#requestmanageoverlaypermission)
+* [`checkPermissions()`](#checkpermissions)
+* [`requestPermissions()`](#requestpermissions)
 * [`checkManageOverlayPermission()`](#checkmanageoverlaypermission)
+* [`requestManageOverlayPermission()`](#requestmanageoverlaypermission)
 * [`addListener('buttonClicked', ...)`](#addlistenerbuttonclicked)
 * [`removeAllListeners()`](#removealllisteners)
 * [Interfaces](#interfaces)
@@ -181,19 +183,40 @@ Only available for Android.
 --------------------
 
 
-### requestManageOverlayPermission()
+### checkPermissions()
 
 ```typescript
-requestManageOverlayPermission() => Promise<ManageOverlayPermissionResult>
+checkPermissions() => Promise<PermissionStatus>
 ```
 
-Request the manage overlay permission.
+Check permission to display notifications.
+
+On **Android**, this method only needs to be called on Android 13+.
 
 Only available for Android.
 
-**Returns:** <code>Promise&lt;<a href="#manageoverlaypermissionresult">ManageOverlayPermissionResult</a>&gt;</code>
+**Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
 
-**Since:** 0.3.0
+**Since:** 5.0.0
+
+--------------------
+
+
+### requestPermissions()
+
+```typescript
+requestPermissions() => Promise<PermissionStatus>
+```
+
+Request permission to display notifications.
+
+On **Android**, this method only needs to be called on Android 13+.
+
+Only available for Android.
+
+**Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
+
+**Since:** 5.0.0
 
 --------------------
 
@@ -205,6 +228,23 @@ checkManageOverlayPermission() => Promise<ManageOverlayPermissionResult>
 ```
 
 Check if the overlay permission is granted.
+
+Only available for Android.
+
+**Returns:** <code>Promise&lt;<a href="#manageoverlaypermissionresult">ManageOverlayPermissionResult</a>&gt;</code>
+
+**Since:** 0.3.0
+
+--------------------
+
+
+### requestManageOverlayPermission()
+
+```typescript
+requestManageOverlayPermission() => Promise<ManageOverlayPermissionResult>
+```
+
+Request the manage overlay permission.
 
 Only available for Android.
 
@@ -272,6 +312,13 @@ Remove all listeners for this plugin.
 | **`id`**    | <code>number</code> | The button identifier. This is used to identify the button when the `buttonClicked` event is emitted. | 0.2.0 |
 
 
+#### PermissionStatus
+
+| Prop          | Type                                                        | Description                                   | Since |
+| ------------- | ----------------------------------------------------------- | --------------------------------------------- | ----- |
+| **`display`** | <code><a href="#permissionstate">PermissionState</a></code> | Permission state of displaying notifications. | 5.0.0 |
+
+
 #### ManageOverlayPermissionResult
 
 | Prop          | Type                 | Description                                                                      | Since |
@@ -294,6 +341,11 @@ Remove all listeners for this plugin.
 
 
 ### Type Aliases
+
+
+#### PermissionState
+
+<code>'prompt' | 'prompt-with-rationale' | 'granted' | 'denied'</code>
 
 
 #### ButtonClickedEventListener
