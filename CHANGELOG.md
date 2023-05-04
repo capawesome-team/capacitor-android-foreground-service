@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/capawesome-team/sponsorware/compare/v0.3.0...v5.0.0) (2023-05-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* This plugin now only supports Capacitor 5. Also, on Android 13, you now have to call `requestPermissions()`.
+
+### Features
+
+* update to Capacitor 5 ([#4](https://github.com/capawesome-team/sponsorware/issues/4)) ([35c55d3](https://github.com/capawesome-team/sponsorware/commit/35c55d333b421f6ae77f89081b27afe549350742))
+
 ## [0.3.0](https://github.com/capawesome-team/sponsorware/compare/v0.2.0...v0.3.0) (2023-03-14)
 
 
